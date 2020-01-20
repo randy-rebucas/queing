@@ -3,6 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { QueingService } from '../shared/queing.service';
+import { Observable } from 'rxjs';
+import { Queing } from '../shared/queing';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  public queing$: Observable<Queing[]>;
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -34,6 +38,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private angularFireAuth: AngularFireAuth,
+    private queingService: QueingService,
     private router: Router
   ) {}
 
@@ -43,5 +48,7 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/auth']);
       }
     });
+
+    this.queing$ = this.queingService.get();
   }
 }

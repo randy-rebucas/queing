@@ -30,7 +30,7 @@ export class AuthComponent implements OnInit {
     if (signInSuccessData.authResult.additionalUserInfo.isNewUser) {
       // signInSuccessData.authResult.additionalUserInfo.providerId
       // this.user = signInSuccessData.authResult.user;
-
+      this.router.navigate(['/dashboard']);
       // this.usersService.insert(this.user).then(() => {
       //   this.router.navigateByUrl('/setup');
       // });

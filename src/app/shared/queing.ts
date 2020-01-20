@@ -10,6 +10,6 @@ export class Queing {
         public uniqeNumber: string,
         public name: Name,
         public priority: string,
-        public created: string
+        public created: Date
     ) {}
 }
