@@ -1,0 +1,5 @@
+<section class="mat-typography">
+    <mat-list>
+        <mat-list-item *ngFor="let queing of (queing$ | async)"> {{queing.uniqeNumber}} </mat-list-item>
+    </mat-list>
+</section>
