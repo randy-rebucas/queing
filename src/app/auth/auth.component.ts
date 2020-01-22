@@ -40,5 +40,5 @@ export class AuthComponent implements OnInit {
   errorCallback(errorData: FirebaseUISignInFailure) {
     console.log(errorData);
   }
-  
+
 }

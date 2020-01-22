@@ -13,27 +13,7 @@ import { Queing } from '../shared/queing';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public queing$: Observable<Queing[]>;
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
-
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  public queingsObs: Observable<Queing[]>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -43,12 +23,28 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.angularFireAuth.authState.subscribe((response) => {
       if (!response) {
         this.router.navigate(['/auth']);
       }
     });
 
-    this.queing$ = this.queingService.get();
+    this.queingsObs = this.queingService.get();
+  }
+
+  onAddQue() {
+    const que  = {
+      uniqueNumber: Math.floor(Math.random() * 999999999),
+      name: {
+        firstname: 'anjoe',
+        lastname: 'elyana'
+      },
+      priority: 'Normal',
+      created: new Date()
+    };
+    this.queingService.insert(que).then((res) => {
+      console.log(res);
+    });
   }
 }

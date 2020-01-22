@@ -7,7 +7,7 @@ export interface Name {
 export class Queing {
     constructor(
         public id: string,
-        public uniqeNumber: string,
+        public uniqueNumber: string,
         public name: Name,
         public priority: string,
         public created: Date
